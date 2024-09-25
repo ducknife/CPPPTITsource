@@ -1,74 +1,104 @@
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
+void stdWord(string &s){ 
+    stringstream ss(s);
+    string word;
+    string res = "";
+    while (ss >> word){
+        res += word;
+        res += " ";
+    }
+    res.pop_back();
+    s = res;
+} 
 class KH{
-    public:
-        string id, ten, gt, ns, dc;
-        void setID(string id){
-            this->id = id;
+	public:
+		string id, name, sex, birth, address;
+        void output(){
+            cout << name << " " << address << " ";
         }
 };
 class MH{
     public:
-        string id, ten, donvi;
-        ll giaban, giamua;
-        void setID(string id){
-            this->id = id;
+        string id, name, unit;
+        ll buy, sell;
+        void output(){
+            cout << name << " " << unit << " " << buy << " " << sell << " ";
         }
 };
 class HD{
     public:
-        string id, mk, mh;
-        ll soluong;
-        void setID(string id){
-            this->id = id;
-        }
+        string id, idKH, idMH;
+        ll quantity;
+        ll total;
 };
-int main(){
-    ifstream in1, in2, in3;
-    in1.open("KH.in", ios::in);
-    in2.open("MH.in", ios::in);
-    in3.open("HD.in", ios::in);
-    if (in1.is_open() && in2.is_open() && in3.is_open()){
-        int n, m, k;
-        map<string, KH>v1;
-        map<string, MH>v2;
-        vector<HD>v3(k);
-        in1 >> n;
-        for (int i = 0; i < n; i++){
+map<string, KH>kh;
+map<string, MH>mh;
+void processKH(){
+    ifstream in1("KH.in");
+    if (in1.is_open()){
+        int n; in1 >> n;
+        for (int i = 1; i <= n; i++){
             KH x;
-            if (i + 1 < 10) x.setID("KH00" + to_string(i + 1));
-            else x.setID("KH0" + to_string(i + 1));
-            getline(in1 >> ws, x.ten);
-            getline(in1, x.gt);
-            getline(in1, x.ns);
-            getline(in1, x.dc);
-            v1.insert({x.id, x});
+            x.id = "KH0";
+            if (i < 10) x.id += "0" + to_string(i);
+            else x.id += to_string(i);
+            getline(in1 >> ws, x.name);
+            getline(in1 >> ws, x.sex);
+            getline(in1 >> ws, x.birth);
+            getline(in1 >> ws, x.address);
+            stdWord(x.name), stdWord(x.sex), stdWord(x.birth), stdWord(x.address);
+            kh.insert({x.id, x});
         }
-        in2 >> m; 
-        for (int i = 0; i < m; i++){
-            MH x;
-            if (i + 1 < 10) x.setID("MH00" + to_string(i + 1));
-            else x.setID("MH0" + to_string(i + 1));
-            getline(in2 >> ws, x.ten);
-            getline(in2, x.donvi);
-            in2 >> x.giamua >> x.giaban;
-            v2.insert({x.id, x});
-        }
-        in3 >> k;
-        for (int i = 0; i < k; i++){
-            HD x; 
-            in3 >> x.mk >> x.mh >> x.soluong;
-            v3.push_back(x);
-        }
-        for (int i = 0; i < k; i++){
-            cout << "HD" << setfill('0') << setw(3) << i + 1 << " ";
-            cout << v1[v3[i].mk].ten << " " << v1[v3[i].mk].dc << " ";
-            cout << v2[v3[i].mh].ten << " " << v2[v3[i].mh].donvi << " ";
-            cout << v2[v3[i].mh].giamua << " " << v2[v3[i].mh].giaban << " ";
-            cout << v3[i].soluong << " " << v2[v3[i].mh].giaban * v3[i].soluong;
-            if (i != k - 1) cout << endl;
-        }
+        in1.close();
     }
-    in1.close(); in2.close(); in3.close();
+}
+void processMH(){
+    ifstream in2("MH.in");
+    if (in2.is_open()){
+        int m; in2 >> m;
+        for (int i = 1; i <= m; i++){
+            MH x;
+            x.id = "MH0";
+            if (i < 10) x.id += "0" + to_string(i);
+            else x.id += to_string(i);
+            getline(in2 >> ws, x.name);
+            getline(in2 >> ws, x.unit);
+            stdWord(x.unit);
+            stdWord(x.name);
+            in2 >> x.buy >> x.sell;
+            mh.insert({x.id, x});
+        }
+        in2.close();
+    }
+}
+void printHD(){
+    vector<HD>a;
+    ifstream in3("HD.in");
+    if (in3.is_open()){
+        int p; in3 >> p;
+        in3.ignore();
+        for (int i = 1; i <= p; i++){
+            HD x;
+            x.id = "HD0";
+            if (i < 10) x.id += "0" + to_string(i);
+            else x.id += to_string(i);
+            in3 >> x.idKH >> x.idMH >> x.quantity;
+            x.total = mh[x.idMH].sell * x.quantity;
+            a.push_back(x);
+        }
+        in3.close();
+    }
+    for (auto i : a){
+        cout << i.id << " ";
+        kh[i.idKH].output();
+        mh[i.idMH].output();
+        cout << i.quantity << " " << i.total << endl;
+    }
+}
+int main(){
+	processKH();
+    processMH();
+    printHD();
 }
