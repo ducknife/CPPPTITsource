@@ -1,3 +1,4 @@
+/* Phân tích thừa số nguyên tố với 2 <= n <= 1e14, giới hạn 1s */
 #include <bits/stdc++.h>
 #define ll long long
 #define MOD 1000000007
