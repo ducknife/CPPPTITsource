@@ -98,7 +98,7 @@ void printHD(){
     }
 }
 int main(){
-	processKH();
+    processKH();
     processMH();
     printHD();
 }
