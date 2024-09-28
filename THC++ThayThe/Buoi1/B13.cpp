@@ -7,11 +7,11 @@ int main(){
     cin.tie(0);
     int t; cin >> t;
     while (t--){
-        string s; cin >> s;
-        string tmp = s;
-        reverse(tmp.begin(), tmp.end());
-        if (s == tmp) cout << "YES" << endl;
-        else cout << "NO" << endl;
+        int n, x; cin >> n >> x;
+        int a[n]; for (int i = 0; i < n; i++) cin >> a[i];
+        sort(a, a + n);
+        if (binary_search(a, a + n, x)) cout << 1 << endl;
+        else cout << -1 << endl;
     }
     return 0;
 }
