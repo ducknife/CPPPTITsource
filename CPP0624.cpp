@@ -49,7 +49,10 @@ int main(){
         cout << "DANH SACH SINH VIEN NGANH " << s << ":" << endl;
         StoDCS(s);
         for (int i = 0; i < v.size(); i++){
-            if (v[i].getClass()[0] != 'E'){
+            if (s == "DCCN" || s == "DCAT"){
+                if (v[i].getClass()[0] != 'E' && v[i].GetMajor() == s) v[i].in();
+            }
+            else {
                 if (v[i].GetMajor() == s) v[i].in();
             }
         }
