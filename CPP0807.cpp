@@ -2,7 +2,7 @@
 using namespace std;
 int main(){
     ifstream in;
-    in.open("Data.in", ios::in);
+    in.open("DATA.in", ios::in);
     if (in.is_open()){
         int n, m;
         in >> n >> m;
