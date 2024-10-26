@@ -3,11 +3,11 @@ using namespace std;
 #define ll long long
 #define MOD 1000000007
 string Add(string a, string b);
-string f[1005];
+string f[1000];
 string FiBo(int n){
     f[0] = "0", f[1] = "1";
-    if (n == 1) return f[0];
-    if (n == 2) return f[1];
+    if (n == 0) return f[0];
+    if (n == 1) return f[1];
     for (int i = 2; i <= 1000; i++){
         f[i] = Add(f[i - 1], f[i - 2]);
         if (i == n) return f[i];
