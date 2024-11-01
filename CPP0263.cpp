@@ -43,9 +43,8 @@ int main(){
     buildMinor();
     for (int i = n; i >= 1; i--){
         for (int j = n; j >= 1; j--){
-            for (int k = min(i, j); k >= 0; k--){ /* dam bao no van con nam trong mang 2 chieu */
-                res = max(res, major[i][j] - major[i - k][j - k] - minor[i][j - k + 1] - minor[i - k][j + 1]);
-                /* cai nay ve ra la biet */
+            for (int k = min(i, j); k >= 0; k--){
+                res = max(res, major[i][j] - major[i - k][j - k] - minor[i][j - k + 1] + minor[i - k][j + 1]);
             }
         }
     }
