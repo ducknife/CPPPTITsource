@@ -2,7 +2,8 @@
 using namespace std;
 int dx[4] = {-1, 0, 0, 1};
 int dy[4] = {0, -1, 1, 0};
-int a[25][25], n, m;
+char a[25][25];
+int n, m;
 void Try(int i, int j){
     a[i][j] = '*';
     for (int k = 0; k < 4; k++){
